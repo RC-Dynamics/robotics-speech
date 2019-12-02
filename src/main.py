@@ -3,6 +3,17 @@ import nltk
 
 grammar = nltk.data.load('./grammar/athome.cfg')
 
+def create_command(tree):
+    command = {}
+    command['action'] = tree[0][0].label()
+    command['entity'] = {}
+    if tree[1][1].label() == 'C':
+        command['entity']['color'] = tree[1][1][0]
+        command['entity']['type'] = tree[1][2][0][0]
+    else:
+        command['entity']['type'] = tree[1][1][0][0]
+    return command
+
 def callback(recognizer, audio):
     global grammar
     rd_parser = nltk.RecursiveDescentParser(grammar)
@@ -14,6 +25,8 @@ def callback(recognizer, audio):
             trees = rd_parser.parse(tokens)
             for t in trees:
                 print(t)
+            command = create_command(t)
+            print (command)
         except ValueError as e:
             print(e)
     except sr.UnknownValueError:
