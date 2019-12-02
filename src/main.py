@@ -1,6 +1,5 @@
 import speech_recognition as sr
 import nltk
-nltk.download('punkt')
 
 grammar = nltk.data.load('./grammar/athome.cfg')
 
