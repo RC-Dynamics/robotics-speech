@@ -2,3 +2,4 @@ pocketsphinx
 PyAudio
 nltk
 SpeechRecognition
+numpy
