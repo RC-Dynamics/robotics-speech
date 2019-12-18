@@ -40,13 +40,19 @@ def callback(recognizer, audio):
                             
                 engine.runAndWait()
             except:
+                engine.say('Sorry, this is not a valid command')
+                engine.runAndWait()
                 print('Malformed phrase.')
 
         except ValueError as e:
             print(e)
     except sr.UnknownValueError:
+        engine.say('Sorry, I cant understand what you say, could you repeat please?')
+        engine.runAndWait()
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
+        engine.say('Sorry, I cant understand what you say, could you repeat please?')
+        engine.runAndWait()
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 def main():
