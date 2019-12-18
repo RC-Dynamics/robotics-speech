@@ -31,10 +31,16 @@ def callback(recognizer, audio):
             trees = rd_parser.parse(tokens)
             for t in trees:
                 print(t)
-            command = create_command(t)
-            print (command)
-            engine.say(command['action'] + (' ' + command['entity']['color'] if 'color' in command['entity'] else '') + ' ' + command['entity']['type'])
-            engine.runAndWait()
+            try:
+                command = create_command(t)
+                print (command)
+                engine.say(command['action'] 
+                            + (' ' + command['entity']['color'] if 'color' in command['entity'] else '') 
+                            + ' ' + command['entity']['type'])
+                            
+                engine.runAndWait()
+            except:
+                print('Malformed phrase.')
 
         except ValueError as e:
             print(e)
@@ -51,7 +57,7 @@ def main():
         r.adjust_for_ambient_noise(source)
     print('Done.')
 
-    stop_listening = r.listen_in_background(m, callback)
+    stop_listening = r.listen_in_background(m, callback, phrase_time_limit=5)
 
     input("Press Enter to stop...\n\n")
     stop_listening(wait_for_stop=False)
