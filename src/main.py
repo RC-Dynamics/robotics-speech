@@ -1,21 +1,27 @@
 import speech_recognition as sr
 import nltk
+import pyttsx3
 
 grammar = nltk.data.load('./grammar/athome.cfg')
+engine = pyttsx3.init()
 
 def create_command(tree):
     command = {}
-    command['action'] = tree[0][0].label()
+    command['action'] = tree[0].label()
     command['entity'] = {}
-    if tree[1][1].label() == 'C':
-        command['entity']['color'] = tree[1][1][0]
-        command['entity']['type'] = tree[1][2][0][0]
+    if tree[1][0].label() == 'PERSON':
+        command['entity']['type'] = tree[1][0][0]
     else:
-        command['entity']['type'] = tree[1][1][0][0]
+        for word in t[1][0]:
+            if word.label() == 'COLOR':
+                command['entity']['color'] = word[0]
+            if word.label() == 'OBJECT' or word.label() == 'FURNITURE':
+                command['entity']['type'] = word[0]
     return command
 
 def callback(recognizer, audio):
     global grammar
+    global engine
     rd_parser = nltk.RecursiveDescentParser(grammar)
     try:
         said = recognizer.recognize_google(audio)
@@ -27,6 +33,9 @@ def callback(recognizer, audio):
                 print(t)
             command = create_command(t)
             print (command)
+            # engine.say(command['action'] + ' ' + command['entity']['type'])
+            # engine.runAndWait()
+
         except ValueError as e:
             print(e)
     except sr.UnknownValueError:
@@ -46,6 +55,7 @@ def main():
 
     input("Press Enter to stop...\n\n")
     stop_listening(wait_for_stop=False)
+    engine.stop()
 
 if __name__ == "__main__":
     main()
