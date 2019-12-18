@@ -12,7 +12,7 @@ def create_command(tree):
     if tree[1][0].label() == 'PERSON':
         command['entity']['type'] = tree[1][0][0]
     else:
-        for word in t[1][0]:
+        for word in tree[1][0]:
             if word.label() == 'COLOR':
                 command['entity']['color'] = word[0]
             if word.label() == 'OBJECT' or word.label() == 'FURNITURE':
