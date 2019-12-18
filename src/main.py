@@ -33,8 +33,8 @@ def callback(recognizer, audio):
                 print(t)
             command = create_command(t)
             print (command)
-            # engine.say(command['action'] + ' ' + command['entity']['type'])
-            # engine.runAndWait()
+            engine.say(command['action'] + (' ' + command['entity']['color'] if 'color' in command['entity'] else '') + ' ' + command['entity']['type'])
+            engine.runAndWait()
 
         except ValueError as e:
             print(e)
