@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-sudo apt-get install swig libpulse-dev libasound2-dev portaudio19-dev python-pyaudio python3-pyaudio
+sudo apt-get install swig libpulse-dev libasound2-dev portaudio19-dev python-pyaudio python3-pyaudio espeak
 conda create -n robotics-speech python=3.7.3
 conda activate robotics-speech
 pip install -r requirements.txt

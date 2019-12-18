@@ -3,3 +3,4 @@ PyAudio
 nltk
 SpeechRecognition
 numpy
+pyttsx3
