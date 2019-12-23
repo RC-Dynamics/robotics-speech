@@ -49,7 +49,8 @@ def main():
     files = list(zip(audio_paths, audio_names))
 
     while i < len(files):
-        audio_path, audio_name = files[i]
+        audio_path, audio_name = files[i
+        predictions['label'].append(audio_name)]
         for model_name in models.keys():
             print('%s - %s' %(audio_name, model_name))
             source_file = sr.AudioFile(audio_path)
@@ -65,7 +66,6 @@ def main():
                 except Exception as e:
                     print(e)
             
-            predictions['label'].append(audio_name)
             predictions[model_name].append(recognition)
         
         i += 1
